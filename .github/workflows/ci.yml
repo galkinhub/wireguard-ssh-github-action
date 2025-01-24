@@ -8,9 +8,10 @@ on:
         description: 'ssh pub'
         default: 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAqKElR+R3ix4KNRg0e6irG/DHd6s5mnl8bxAWvdHQ9NFrtsm3/4mEcZVVhvaiJ5hvwmvM62qtLtkZPvS9y7ssn1ssUXjC/HQG9DFnYw8n9mWcZoeZZsXoJwQlrZExRFtFEJv9Kd6FX8c3Dsi89IZoCJRPgcxBEzt6tvAX75/o30VgOjHYp9sBg9MvHsFD3fAK9W7iVrYIB3BPJS5MvOB6mcJX5Wvpf9og9jRAI4oLvAAqUJ2LnrEd0RVOM5aZ+WoeNB4FCtENh1MsXSu2TB4+ztP0v3iMv+riftwYNiWwIrwLH5NcWW705WHVmeFJRbXOy359JpTZ2xH8+3UyPlQuCQ=='
 jobs:
-  get-package-push:
+  run-wg-server:
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/checkout@v4
       - uses: ./action.yml
         with:
           # Required. IP address of your WireGuard peer/endpoint. Must be publicly reachable.
