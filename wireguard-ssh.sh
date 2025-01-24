@@ -22,7 +22,7 @@ fi
 
 # Dependencies
 sudo DEBIAN_FRONTEND=noninteractive apt-get -qq update
-sudo DEBIAN_FRONTEND=noninteractive apt-get -yqq install wireguard-dkms net-tools
+sudo DEBIAN_FRONTEND=noninteractive apt-get -yqq install wireguard net-tools
 
 # Generate keypairs
 wg genkey | tee github-privatekey | wg pubkey > github-publickey
