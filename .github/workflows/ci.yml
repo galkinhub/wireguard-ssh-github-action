@@ -11,7 +11,7 @@ jobs:
   get-package-push:
     runs-on: ubuntu-24.04
     steps:
-      - uses: ../../action.yml
+      - uses: ./action.yml
         with:
           # Required. IP address of your WireGuard peer/endpoint. Must be publicly reachable.
           peer_ip: '${{ inputs.peer_ip }}'
