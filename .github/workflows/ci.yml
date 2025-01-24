@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: ./action.yml
+      - uses: . # use action yml in this repo root
         with:
           # Required. IP address of your WireGuard peer/endpoint. Must be publicly reachable.
           peer_ip: '${{ inputs.peer_ip }}'
