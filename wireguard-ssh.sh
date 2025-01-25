@@ -12,6 +12,7 @@ fi
 GITHUB_IP=${GITHUB_IP:-192.168.192.1}
 PEER_PRIVATE_IP=$(awk -F\. '{print $1"."$2"."$3"."$4+1}' <<< "${GITHUB_IP}")
 NETWORK=$(awk -F\. '{print $1"."$2"."$3"."$4-1}' <<< "${GITHUB_IP}")
+SUGGESTED_IP=$(awk -F\. '{print $1"."$2"."$3"."$4+1}' <<< "${GITHUB_IP}")
 PEER_PORT=${PEER_PORT:-51820}
 
 # Validate provided GitHub IP
@@ -61,6 +62,8 @@ echo "
 [Interface]
 ListenPort = ${PEER_PORT}
 PrivateKey = $(cat peer-privatekey)
+Address = ${SUGGESTED_IP}
+
 [Peer]
 PublicKey = $(cat github-publickey)
 AllowedIPs = ${GITHUB_IP}/32
