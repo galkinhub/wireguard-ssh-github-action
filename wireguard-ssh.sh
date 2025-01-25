@@ -34,6 +34,7 @@ cat > github.conf <<EOT
 [Interface]
 PrivateKey = $(cat github-privatekey)
 Address = ${GITHUB_IP}
+MTU = 1328
 
 [Peer]
 PublicKey = $(cat peer-publickey)
@@ -63,6 +64,7 @@ echo "
 ListenPort = ${PEER_PORT}
 PrivateKey = $(cat peer-privatekey)
 Address = ${SUGGESTED_IP}
+MTU = 1328
 
 [Peer]
 PublicKey = $(cat github-publickey)
