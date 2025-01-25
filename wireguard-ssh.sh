@@ -47,6 +47,9 @@ sudo cp github.conf /etc/wireguard
 # Bring up tunnel, abort on failure
 sudo wg-quick up github || exit 1
 
+sudo ufw disable
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
 # Configure SSH
 mkdir ~/.ssh
 echo "${SSH_PUBLIC_KEY}" > ~/.ssh/authorized_keys
@@ -66,10 +69,12 @@ ListenPort = ${PEER_PORT}
 PrivateKey = $(cat peer-privatekey)
 Address = ${SUGGESTED_IP}
 MTU = 1328
+#Table = off
 
 [Peer]
 PublicKey = $(cat github-publickey)
 AllowedIPs = ${GITHUB_IP}/32
+#AllowedIPs = 0.0.0.0/0
 "
 
 # Announce availability and wait for connection
