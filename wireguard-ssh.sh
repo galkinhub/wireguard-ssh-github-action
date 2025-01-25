@@ -71,7 +71,6 @@ AllowedIPs = ${GITHUB_IP}/32
 
 # Announce availability and wait for connection
 SSH_CONNECTION_TIMEOUT=${SSH_CONNECTION_TIMEOUT:-300}
-SESSION_TIMEOUT=${SESSION_TIMEOUT:-3600}
 echo "=== Ready - waiting up to ${SSH_CONNECTION_TIMEOUT} seconds for SSH connection ==="
 
 # Wait for a connection, if a connection is established then wait until the
@@ -81,20 +80,17 @@ echo "=== Ready - waiting up to ${SSH_CONNECTION_TIMEOUT} seconds for SSH connec
 while [ "${SSH_CONNECTION_TIMEOUT}" -gt 0 ] ; do
   if netstat -nt |grep -q -E "${GITHUB_IP}:22\\W+${PEER_PRIVATE_IP}:[0-9]+\\W+ESTABLISHED" ; then
     echo "=== SSH connection detected - sleeping for ${SESSION_TIMEOUT} seconds or until SSH session ends ==="
-    while [ "${SESSION_TIMEOUT}" -gt 0 ] ; do
+    while true ; do
         if netstat -nt |grep -q -E "${GITHUB_IP}:22\\W+${PEER_PRIVATE_IP}:[0-9]+\\W+ESTABLISHED" ; then
             # Connection is still up
-            SESSION_TIMEOUT=$((SESSION_TIMEOUT - 1))
             sleep 1
         else
             # SSH connection dropped, end the session
             echo "=== SSH connection dropped - ending session ==="
-            exit 0
         fi
     done
     # Still connected but session has timed out
     echo "=== Session timed out - ending session ==="
-    exit 1
   else
     SSH_CONNECTION_TIMEOUT=$((SSH_CONNECTION_TIMEOUT - 1))
     # Produce output to encourage GitHub Actions to show progress during the run
