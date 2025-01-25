@@ -55,7 +55,8 @@ echo "${SSH_PUBLIC_KEY}" > ~/.ssh/authorized_keys
 sudo chown runner:runner /home/runner
 sudo chmod o-rwx -R /home/runner
 sudo chmod g-rwx -R /home/runner
-
+pwd
+id
 # Output peer configuration
 echo "
 === WireGuard peer configuration ==
@@ -88,11 +89,10 @@ while [ "${SSH_CONNECTION_TIMEOUT}" -gt 0 ] ; do
             sleep 1
         else
             # SSH connection dropped, end the session
-            echo "=== SSH connection dropped - ending session ==="
+            echo "=== SSH connection dropped  ==="
+            break
         fi
     done
-    # Still connected but session has timed out
-    echo "=== Session timed out - ending session ==="
   else
     SSH_CONNECTION_TIMEOUT=$((SSH_CONNECTION_TIMEOUT - 1))
     # Produce output to encourage GitHub Actions to show progress during the run
